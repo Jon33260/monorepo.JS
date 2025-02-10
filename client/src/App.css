@@ -107,6 +107,21 @@ header {
   color: #777;
 }
 
+p {
+  color: #111;
+}
+
+h2 {
+  color: #111;
+}
+
+h3 {
+  color: #111;
+}
+
+img {
+  max-width: 8rem;
+}
 footer {
   grid-column: -2 / -1;
   grid-row: 1;
