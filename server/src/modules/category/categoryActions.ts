@@ -1,6 +1,8 @@
-import type { RequestHandler } from "express";
+// Import access to data
+import categoryRepository from "./categoryRepository";
 
-// Données pour simuler la réponse (si la base de données est vide)
+// Some data to make the trick
+
 const categories = [
   {
     id: 1,
@@ -12,23 +14,28 @@ const categories = [
   },
 ];
 
-// Action pour lister toutes les catégories
-const browse: RequestHandler = (req, res) => {
-  res.json(categories);
+// Declare the actions
+
+import type { RequestHandler } from "express";
+
+const browse: RequestHandler = async (req, res) => {
+  const categoriesFromDB = await categoryRepository.readAll();
+
+  res.json(categoriesFromDB);
 };
 
-// Action pour lire une catégorie spécifique
 const read: RequestHandler = (req, res) => {
   const parsedId = Number.parseInt(req.params.id);
 
-  const categorie = categories.find((p) => p.id === parsedId);
+  const category = categories.find((p) => p.id === parsedId);
 
-  if (categorie != null) {
-    res.json(categorie);
+  if (category != null) {
+    res.json(category);
   } else {
     res.sendStatus(404);
   }
 };
 
-// Export des actions pour les importer dans d'autres fichiers
+// Export them to import them somewhere else
+
 export default { browse, read };

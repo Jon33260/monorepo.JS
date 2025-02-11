@@ -1,5 +1,5 @@
 // Some data to make the trick
-
+import ProgramRepository from "./ProgramRepository";
 const programs = [
   {
     id: 1,
@@ -27,8 +27,10 @@ const programs = [
 
 import type { RequestHandler } from "express";
 
-const browse: RequestHandler = (req, res) => {
-  res.json(programs);
+const browse: RequestHandler = async (req, res) => {
+  const programsFromDB = await ProgramRepository.readAll();
+
+  res.json(programsFromDB);
 };
 
 const read: RequestHandler = (req, res) => {
